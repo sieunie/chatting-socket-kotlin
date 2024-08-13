@@ -48,6 +48,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
+
+	// web socket
+	implementation("org.springframework.boot:spring-boot-starter-websocket")
 }
 
 kotlin {
