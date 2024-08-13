@@ -4,10 +4,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import sieun.chat.domain.auth.application.AuthService
 import sieun.chat.domain.auth.data.dto.AuthSignInReq
 import sieun.chat.domain.auth.data.dto.AuthSignUpReq
@@ -23,15 +20,15 @@ class AuthController(
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "성공")
     )
-    fun signUp(authSignUpReq: AuthSignUpReq): ResponseEntity<String> {
+    fun signUp(@RequestBody authSignUpReq: AuthSignUpReq): ResponseEntity<String> {
         return authService.signUp(authSignUpReq)
     }
 
-    @GetMapping("/signin")
+    @PostMapping("/signin")
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "성공")
     )
-    fun signIn(authSignInReq: AuthSignInReq): ResponseEntity<String> {
+    fun signIn(@RequestBody authSignInReq: AuthSignInReq): ResponseEntity<String> {
         return authService.signIn(authSignInReq)
     }
 }
