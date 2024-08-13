@@ -18,24 +18,24 @@ class AuthServiceImpl(
     private val jwtTokenProvider: JwtTokenProvider
 ): AuthService {
     override fun signUp(authSignUpReq: AuthSignUpReq): ResponseEntity<String> {
-        if (userRepository.existsByEmail(authSignUpReq.email))
+        if (userRepository.existsById(authSignUpReq.id))
             throw IllegalArgumentException()
 
         userRepository.save(User(
-            email = authSignUpReq.email,
+            id = authSignUpReq.id,
             password = passWordEncoder.encode(authSignUpReq.password),
             name = authSignUpReq.name,
             image = null
         ))
 
-        return ResponseEntity(jwtTokenProvider.createAccessToken(authSignUpReq.email), HttpStatus.OK)
+        return ResponseEntity(jwtTokenProvider.createAccessToken(authSignUpReq.id), HttpStatus.OK)
     }
 
     override fun signIn(authSignInReq: AuthSignInReq): ResponseEntity<String> {
-        val user = userRepository.findById(authSignInReq.email)
+        val user = userRepository.findById(authSignInReq.id)
         if (!passWordEncoder.matches(authSignInReq.password, user.get().password))
             throw NoSuchElementException()
 
-        return ResponseEntity(jwtTokenProvider.createAccessToken(authSignInReq.email), HttpStatus.OK)
+        return ResponseEntity(jwtTokenProvider.createAccessToken(authSignInReq.id), HttpStatus.OK)
     }
 }

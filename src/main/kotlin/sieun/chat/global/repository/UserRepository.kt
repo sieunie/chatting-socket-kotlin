@@ -6,5 +6,4 @@ import sieun.chat.global.entity.User
 
 @Repository
 interface UserRepository: JpaRepository<User, String> {
-    fun existsByEmail(email: String): Boolean
 }
