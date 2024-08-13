@@ -25,7 +25,7 @@ class JwtFilter(
         if(authorization != null && authorization.startsWith("Bearer ")){
             val token = authorization.split(" ")[1]
             if(jwtTokenProvider.isAccessToken(token)){
-                val userId = jwtTokenProvider.getId(token)
+                val userId = jwtTokenProvider.getEmail(token)
                 SecurityContextHolder.getContext().authentication = UsernamePasswordAuthenticationToken(
                     userId, null, listOf(SimpleGrantedAuthority("USER"))
                 )
